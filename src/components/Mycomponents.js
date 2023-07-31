@@ -18,6 +18,17 @@ class Mycomponent extends React.Component {
   handelOnmouseover(e) {
     console.log(e.pageX);
   }
+
+  handelOnchange(e) {
+    this.setState({
+      name: e.target.value,
+    });
+  }
+
+  handelSubmit(e) {
+    e.preventDefault();
+    console.log(this.state);
+  }
   // JSX
   render() {
     return (
@@ -34,6 +45,21 @@ class Mycomponent extends React.Component {
         </button>
         <br />
         <button onMouseOver={this.handelOnmouseover}>Hover me</button>
+        <br />
+        <form
+          onSubmit={(e) => {
+            this.handelSubmit(e);
+          }}
+        >
+          <input
+            onChange={(e) => {
+              this.handelOnchange(e);
+            }}
+            type="text"
+          />
+          <br />
+          <button>Submit</button>
+        </form>
       </div>
     );
   }
