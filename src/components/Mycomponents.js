@@ -7,7 +7,12 @@ class Mycomponent extends React.Component {
   };
 
   handelClick(event) {
-    // console.log("Click me");
+    console.log("Click me", this.state.name);
+    // merge State=>react class
+    this.setState({
+      name: "Jonathan",
+      age: Math.floor(Math.random() * 100 + 1),
+    });
     // console.log(event.target);
   }
   handelOnmouseover(e) {
@@ -20,9 +25,15 @@ class Mycomponent extends React.Component {
         My name is {this.state.name}
         and I'm {this.state.age} years old
         <br />
-        <button onMouseOver={this.handelOnmouseover} onClick={this.handelClick}>
+        <button
+          onClick={(e) => {
+            this.handelClick(e);
+          }}
+        >
           Click me
         </button>
+        <br />
+        <button onMouseOver={this.handelOnmouseover}>Hover me</button>
       </div>
     );
   }
