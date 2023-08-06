@@ -19,11 +19,24 @@ class Mycomponent extends React.Component {
       listUser: [...this.state.listUser, Obj],
     });
   };
+
+  handelDelete = (id) => {
+    let listUserNew = [...this.state.listUser];
+
+    listUserNew = listUserNew.filter((item) => item.id !== id);
+
+    this.setState({
+      listUser: listUserNew,
+    });
+  };
   render() {
     return (
       <React.Fragment>
         <UserInfo handelAddNewUser={this.handelAddNewUser} />
-        <DisplayInfo listUser={this.state.listUser} />
+        <DisplayInfo
+          listUser={this.state.listUser}
+          handelDelete={this.handelDelete}
+        />
       </React.Fragment>
     );
   }

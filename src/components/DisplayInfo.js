@@ -11,6 +11,7 @@ class DisplayInfo extends React.Component {
       HidenUser: !this.state.HidenUser,
     });
   }
+
   render() {
     // Destructuring Obj/Array
     const { listUser } = this.props;
@@ -36,7 +37,16 @@ class DisplayInfo extends React.Component {
                   <div style={{ color: "black", paddingTop: "red" }}>
                     My name is {user.name}
                   </div>
-                  <div> My name is {user.age}</div>
+                  <span> My name is {user.age}</span>
+
+                  <button
+                    onClick={() => {
+                      this.props.handelDelete(user.id);
+                    }}
+                    style={{ marginLeft: "20px" }}
+                  >
+                    Delete
+                  </button>
                   <hr />
                 </div>
               );
