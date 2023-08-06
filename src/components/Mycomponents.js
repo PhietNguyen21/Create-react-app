@@ -21,10 +21,10 @@ class Mycomponent extends React.Component {
   };
   render() {
     return (
-      <div>
+      <React.Fragment>
         <UserInfo handelAddNewUser={this.handelAddNewUser} />
         <DisplayInfo listUser={this.state.listUser} />
-      </div>
+      </React.Fragment>
     );
   }
 }

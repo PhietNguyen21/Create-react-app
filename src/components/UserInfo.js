@@ -44,7 +44,7 @@ class UserInfo extends React.Component {
   }
   render() {
     return (
-      <div>
+      <>
         My name is {this.state.name}
         and I'm {this.state.age} years old
         <br />
@@ -83,7 +83,7 @@ class UserInfo extends React.Component {
           <br />
           <button>Submit</button>
         </form>
-      </div>
+      </>
     );
   }
 }
