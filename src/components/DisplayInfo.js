@@ -1,5 +1,6 @@
 import React from "react";
 import "./DisplayInfo.scss";
+import logo from "../logo.svg";
 class DisplayInfo extends React.Component {
   state = {
     HidenUser: false,
@@ -17,6 +18,7 @@ class DisplayInfo extends React.Component {
     // console.log(x, z);
     return (
       <div className="disPlay-container">
+        <img src={logo} alt="logo" />
         <div>
           <span
             onClick={(e) => {
