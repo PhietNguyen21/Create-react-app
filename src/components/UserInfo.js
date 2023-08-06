@@ -2,8 +2,8 @@ import React from "react";
 
 class UserInfo extends React.Component {
   state = {
-    name: "Phiet",
-    age: 22,
+    name: "",
+    age: "",
   };
 
   handelClick(event) {
@@ -35,7 +35,12 @@ class UserInfo extends React.Component {
 
   handelSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+
+    this.props.handelAddNewUser({
+      id: Math.floor(Math.random() * 100 + 1),
+      name: this.state.name,
+      age: this.state.age,
+    });
   }
   render() {
     return (

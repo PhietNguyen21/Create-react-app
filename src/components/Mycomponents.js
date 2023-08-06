@@ -12,10 +12,17 @@ class Mycomponent extends React.Component {
       { id: 3, name: "Minh", age: "23", address: "Quan 1" },
     ],
   };
+
+  handelAddNewUser = (Obj) => {
+    this.setState({
+      // listUser: [Obj, ...this.state.listUser],
+      listUser: [...this.state.listUser, Obj],
+    });
+  };
   render() {
     return (
       <div>
-        <UserInfo />
+        <UserInfo handelAddNewUser={this.handelAddNewUser} />
         <DisplayInfo listUser={this.state.listUser} />
       </div>
     );
