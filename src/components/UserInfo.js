@@ -1,10 +1,13 @@
 import React from "react";
 
 class UserInfo extends React.Component {
-  state = {
-    name: "",
-    age: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      age: "",
+    };
+  }
 
   handelClick(event) {
     console.log("Click me", this.state.name);

@@ -2,17 +2,39 @@ import React from "react";
 import "./DisplayInfo.scss";
 import logo from "../logo.svg";
 class DisplayInfo extends React.Component {
-  state = {
-    HidenUser: false,
-  };
+  constructor(props) {
+    console.log(">>>Call me constructor");
+    super(props);
+    this.state = {
+      HidenUser: false,
+    };
+  }
 
   HandelHideList(e) {
     this.setState({
       HidenUser: !this.state.HidenUser,
     });
   }
+  componentDidMount() {
+    console.log(">>>Call me component Did Mount");
+    setTimeout(() => {
+      document.title = "Phiet Nguyen";
+    }, 3000);
+  }
 
+  componentDidUpdate(prevProps, prevState, shot) {
+    console.log(">>>Call me component Did Update");
+    console.log(">>>Props hien tai", this.props);
+    console.log(">>>Props qua khu", prevProps);
+
+    if (this.props.listUser !== prevProps.listUser) {
+      if (this.props.listUser.length === 5) {
+        alert("you already have 5 users");
+      }
+    }
+  }
   render() {
+    console.log(">>>Call me render");
     // Destructuring Obj/Array
     const { listUser } = this.props;
     // const [x, , z] = this.props.arrDisplay;

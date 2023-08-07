@@ -22,13 +22,13 @@ class Mycomponent extends React.Component {
 
   handelDelete = (id) => {
     let listUserNew = [...this.state.listUser];
-
     listUserNew = listUserNew.filter((item) => item.id !== id);
 
     this.setState({
       listUser: listUserNew,
     });
   };
+
   render() {
     return (
       <React.Fragment>
