@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DisplayInfo.scss";
 import logo from "../logo.svg";
 // class DisplayInfo extends React.Component {
@@ -87,6 +87,26 @@ const DisplayInfo = (props) => {
   const handelHiddenUser = () => {
     setHiddenUser(!HiddenUser);
   };
+
+  // THAM SO THU 2 ma` la` [] thi` useEffect=== componentDidMount
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     document.title = "Phiet Nguyen";
+  //   }, 3000);
+  //   console.log(">>>Call me useEffect");
+  // }, []);
+
+  // NEU THAM SO THU 2 la` 1 state hoac props thi` khi bien' day' thay doi se
+  // lam` useEffect dc goi lai==> useEffect=== componentDidUpdate
+
+  useEffect(() => {
+    if (listUser.length === 0) {
+      alert("You delected all the users");
+    }
+    console.log(">>>Call me UseEffect");
+  }, [listUser]);
+  console.log(">>>Call me render");
+
   return (
     <div className="disPlay-container">
       <div>
