@@ -1,15 +1,13 @@
-import logo from "./logo.svg";
 import "./App.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { increaseCounter, decreaseCounter } from "./redux/action/counterAction";
-import Mycomponent from "./components/Mycomponents";
+
 import React from "react";
+import Header from "./components/Header/header";
 
 const App = () => {
   return (
-    <>
-      <div className="app-container">hello world</div>
-    </>
+    <div className="app-container">
+      <Header />
+    </div>
   );
 };
 
