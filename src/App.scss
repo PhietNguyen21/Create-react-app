@@ -1,3 +1,7 @@
+html {
+  width: 100vw;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -8,11 +12,29 @@ body {
 }
 
 .app-container {
+  width: 100%;
+
   .header-container {
     .navbar-nav {
       .nav-link {
+        color: black;
         &.active {
           color: red !important;
+        }
+      }
+    }
+  }
+
+  .main-container {
+    .app-content {
+      .homepage-container {
+        height: 100%;
+        video {
+          position: fixed;
+          width: 100%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
       }
     }

@@ -8,12 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Navbar
-      expand="lg"
-      bg="dark"
-      data-bs-theme="dark"
-      className="bg-body-tertiary nav"
-    >
+    <Navbar expand="lg" className="bg-body-tertiary nav">
       <Container>
         <NavLink id="logo" to="/" className="navbar-brand">
           LOGO
