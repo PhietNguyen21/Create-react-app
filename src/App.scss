@@ -1,5 +1,6 @@
 html {
   width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
@@ -10,12 +11,35 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px !important;
+  }
+}
 
 .app-container {
   width: 100%;
 
   .header-container {
     .navbar-nav {
+      button.btn-login {
+        border: 1px solid #535353;
+        border-radius: 10px;
+        padding: 6px 15px;
+        height: 40px;
+      }
+      button.btn-signUp {
+        border: 1px solid #535353;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        padding: 6px 15px;
+        height: 40px;
+        margin-left: 10px;
+        color: white;
+        &:hover {
+          background-color: black;
+        }
+      }
       .nav-link {
         color: black;
         &.active {
@@ -29,12 +53,39 @@ body {
     .app-content {
       .homepage-container {
         height: 100%;
-        video {
-          position: fixed;
-          width: 100%;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
+        .homepage {
+          video {
+            position: fixed;
+
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .homepage-content {
+            position: relative;
+            padding: 80px 120px;
+            margin-top: 40px;
+            width: 52%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .tilte {
+              font-size: 2.6rem;
+              font-weight: bold;
+            }
+            p {
+              font-size: 1.3rem;
+            }
+            button.btn-free {
+              border: 1px solid #535353;
+              background-color: black;
+              color: white;
+              border-radius: 10px;
+              padding: 6px 15px;
+              height: 40px;
+            }
+          }
         }
       }
     }
