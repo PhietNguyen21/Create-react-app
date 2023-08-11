@@ -1,0 +1,17 @@
+.admin-container {
+    display: flex;
+    .Sidebar-container {
+        .prosideBar {
+            height: 100vh;
+            transition: all 1s;
+            // .pro-sidebar-inner {
+            //     .pro-sidebar-layout {
+
+            //     }
+            // }
+        }
+    }
+    .sidebar-content {
+        cursor: pointer;
+    }
+}
