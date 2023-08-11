@@ -7,7 +7,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-
+import { DiReact } from "react-icons/di";
 import {
   FaTachometerAlt,
   FaGem,
@@ -16,14 +16,19 @@ import {
   FaRegLaughWink,
   FaHeart,
 } from "react-icons/fa";
+
+import { MdDashboard } from "react-icons/md";
 import sidebarBg from "../../assets/bg2.jpg";
+// import DiReact from "../../../public/logo192.png";
 import "react-pro-sidebar/dist/css/styles.css";
+
 const SideBar = (props) => {
   const { image, collapsed, rtl, toggled, handleToggleSidebar } = props;
   return (
     <ProSidebar
       className="prosideBar"
       image={sidebarBg}
+      rtl={rtl}
       collapsed={collapsed}
       toggled={toggled}
       breakPoint="md"
@@ -42,28 +47,20 @@ const SideBar = (props) => {
             whiteSpace: "nowrap",
           }}
         >
-          JoNaThan
+          <DiReact size={"3em"} color="00bfff" />
+          <span>JONATHAN</span>
         </div>
       </SidebarHeader>
 
       <SidebarContent>
         <Menu iconShape="circle">
-          <MenuItem
-            icon={<FaTachometerAlt />}
-            suffix={<span className="badge red">New</span>}
-          >
-            Dashboard
-          </MenuItem>
-          <MenuItem icon={<FaGem />}>components</MenuItem>
+          <MenuItem icon={<MdDashboard />}>Dashboard</MenuItem>
         </Menu>
         <Menu iconShape="circle">
-          <SubMenu
-            suffix={<span className="badge yellow">3</span>}
-            icon={<FaRegLaughWink />}
-          >
-            <MenuItem> 1</MenuItem>
-            <MenuItem> 2</MenuItem>
-            <MenuItem> 3</MenuItem>
+          <SubMenu icon={<FaGem />} title="Features">
+            <MenuItem>Quản Lý User</MenuItem>
+            <MenuItem>Quản Lý Bài Quiz</MenuItem>
+            <MenuItem>Quản Lý Câu Hỏi</MenuItem>
           </SubMenu>
         </Menu>
       </SidebarContent>
@@ -81,7 +78,6 @@ const SideBar = (props) => {
             className="sidebar-btn"
             rel="noopener noreferrer"
           >
-            <FaGithub />
             <span
               style={{
                 whiteSpace: "nowrap",
@@ -89,7 +85,15 @@ const SideBar = (props) => {
                 overflow: "hidden",
               }}
             >
-              viewSource
+              <span
+                style={{
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  textDecoration: "none",
+                }}
+              >
+                &#169; JONATHAN PHIET
+              </span>
             </span>
           </a>
         </div>

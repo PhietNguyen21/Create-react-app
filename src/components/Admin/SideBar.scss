@@ -3,15 +3,25 @@
     .Sidebar-container {
         .prosideBar {
             height: 100vh;
-            transition: all 1s;
-            // .pro-sidebar-inner {
-            //     .pro-sidebar-layout {
-
-            //     }
-            // }
         }
     }
     .sidebar-content {
         cursor: pointer;
+    }
+    .pro-sidebar-footer {
+        .sidebar-btn-wrapper {
+            a {
+                background-color: rgba(183, 195, 74, 0.926);
+                padding: 8px 12px;
+                border-radius: 16px;
+                text-decoration: none;
+                color: white;
+                font-weight: bold;
+                transition: all 0.5s;
+                &:hover {
+                    color: black;
+                }
+            }
+        }
     }
 }
