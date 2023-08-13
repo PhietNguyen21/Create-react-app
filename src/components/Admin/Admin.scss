@@ -1,0 +1,45 @@
+.admin-container {
+    .admin-content {
+        width: 100%;
+        .admin-main {
+            border: 2px solid green;
+            // .manager-user-container {
+            //     .title {
+
+            //     }
+            //     .user-content {
+            //         border: 2px solid red;
+            //     }
+            // }
+        }
+        .admin-header {
+            border: 2px solid red;
+        }
+    }
+}
+
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    .form-group {
+        input {
+            width: 100%;
+            border-radius: 3px;
+            border: 1px solid gray;
+            &:focus {
+                outline: none;
+                border: 2px solid green;
+            }
+        }
+    }
+
+    .role {
+        display: flex;
+        flex-direction: column;
+        #state {
+            width: 80%;
+            height: 100%;
+        }
+    }
+}
