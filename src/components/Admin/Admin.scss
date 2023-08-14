@@ -42,4 +42,34 @@
             height: 100%;
         }
     }
+
+    .form-image {
+        grid-column: 1/3;
+        .label-upload {
+            div {
+                border: 1px solid #ccc;
+                display: flex;
+                align-items: center;
+                padding: 2px 20px;
+                cursor: pointer;
+                background-color: #eeeeee;
+                border-radius: 2px;
+                &:hover {
+                    background-color: #dcdcdc;
+                }
+                span {
+                    margin-left: 5px;
+                }
+            }
+        }
+        .img-preview {
+            border: 1px dashed gray;
+            margin-top: 10px;
+            padding: 20px;
+            text-align: center;
+            img {
+                width: 50%;
+            }
+        }
+    }
 }
