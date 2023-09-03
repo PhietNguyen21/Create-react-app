@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 
+import { toast } from "react-toastify";
+
 const ModalCreateUser = ({ show, handleClose, handleShow }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -16,24 +18,41 @@ const ModalCreateUser = ({ show, handleClose, handleShow }) => {
     if (e.target && e.target.files && e.target.files[0]) {
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
       setImage(e.target.files[0]);
+    } else {
+      setPreviewImage("");
     }
-    // else {
-    //   setPreviewImage(e.target.files[0]);
-    // }
   };
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  const handelExit = () => {
+    handleClose();
+    setEmail("");
+    setImage("");
+    setPass("");
+    setRole("");
+    setUserName("");
+    setPreviewImage("");
+  };
   const handelSave = async (e) => {
     e.preventDefault();
 
-    // const data = {
-    //   email: email,
-    //   password: pass,
-    //   username: userName,
-    //   role: role,
-    //   userImage: image,
-    // };
-    // console.log(data);
-
+    // Validate
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Email Invalid");
+      return;
+    }
+    if (!pass) {
+      toast.error("Invalid Password");
+      return;
+    }
+    // Submit data
     const form = new FormData();
     form.append("email", email);
     form.append("password", pass);
@@ -44,14 +63,14 @@ const ModalCreateUser = ({ show, handleClose, handleShow }) => {
       "http://localhost:8081/api/v1/participant",
       form
     );
-    console.log("check res", res);
+    console.log("check res", res.data);
 
-    handleClose();
-    setEmail("");
-    setImage("");
-    setPass("");
-    setRole("");
-    setUserName("");
+    if (res.data && res.data.EC === 0) {
+      toast.success(res.data.EM);
+      handelExit();
+    } else {
+      toast.error(res.data.EM);
+    }
   };
   return (
     <>
@@ -59,7 +78,7 @@ const ModalCreateUser = ({ show, handleClose, handleShow }) => {
         Launch demo modal
       </Button> */}
 
-      <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
+      <Modal show={show} onHide={handelExit} size="xl" backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Add new users</Modal.Title>
         </Modal.Header>
@@ -141,7 +160,7 @@ const ModalCreateUser = ({ show, handleClose, handleShow }) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handelExit}>
             Close
           </Button>
           <Button variant="primary" onClick={handelSave}>
