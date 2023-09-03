@@ -1,14 +1,10 @@
+import axios from "axios";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 
-const ModalCreateUser = (props) => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+const ModalCreateUser = ({ show, handleClose, handleShow }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [userName, setUserName] = useState("");
@@ -25,11 +21,43 @@ const ModalCreateUser = (props) => {
     //   setPreviewImage(e.target.files[0]);
     // }
   };
+
+  const handelSave = async (e) => {
+    e.preventDefault();
+
+    // const data = {
+    //   email: email,
+    //   password: pass,
+    //   username: userName,
+    //   role: role,
+    //   userImage: image,
+    // };
+    // console.log(data);
+
+    const form = new FormData();
+    form.append("email", email);
+    form.append("password", pass);
+    form.append("username", userName);
+    form.append("role", role);
+    form.append("userImage", image);
+    const res = await axios.post(
+      "http://localhost:8081/api/v1/participant",
+      form
+    );
+    console.log("check res", res);
+
+    handleClose();
+    setEmail("");
+    setImage("");
+    setPass("");
+    setRole("");
+    setUserName("");
+  };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
@@ -116,7 +144,7 @@ const ModalCreateUser = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handelSave}>
             Save Changes
           </Button>
         </Modal.Footer>
