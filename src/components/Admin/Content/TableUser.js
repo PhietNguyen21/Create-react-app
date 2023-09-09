@@ -3,19 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 
-import { getAllUser } from "../../../services/apiServices";
-const TableUser = () => {
-  const [listStudent, SetListStudent] = useState([]);
-  useEffect(() => {
-    fetchUser();
-  });
-
-  const fetchUser = async () => {
-    const res = await getAllUser();
-    if (res.EC === 0) {
-      SetListStudent(res.DT);
-    }
-  };
+const TableUser = ({ listStudent, fetchListUser }) => {
   return (
     <>
       <Table striped bordered hover variant="dark">
@@ -48,7 +36,7 @@ const TableUser = () => {
             })}
           {listStudent && listStudent.length === 0 && (
             <tr className="text-center">
-              <td colSpan={4}>NO DATA</td>
+              <td colSpan={5}>NO DATA</td>
             </tr>
           )}
         </tbody>
