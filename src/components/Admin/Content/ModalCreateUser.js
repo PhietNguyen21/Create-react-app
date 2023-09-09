@@ -44,11 +44,11 @@ const ModalCreateUser = ({ show, handleClose, handleShow }) => {
     e.preventDefault();
 
     // Validate
-    // const isValidEmail = validateEmail(email);
-    // if (!isValidEmail) {
-    //   toast.error("Email Invalid");
-    //   return;
-    // }
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Email Invalid");
+      return;
+    }
     if (!pass) {
       toast.error("Invalid Password");
       return;
