@@ -29,7 +29,10 @@ const TableUser = ({ listStudent, fetchListUser, showUpdateUser }) => {
                   <td>{item.role}</td>
                   <td>
                     <button className="btn btn-secondary">View</button>
-                    <ModalUpdateUser user={item} />
+                    <ModalUpdateUser
+                      fetchListUser={fetchListUser}
+                      user={item}
+                    />
                     <button className="btn btn-danger">Delete</button>
                   </td>
                 </tr>

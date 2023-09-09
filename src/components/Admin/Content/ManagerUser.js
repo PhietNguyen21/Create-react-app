@@ -5,7 +5,7 @@ import TableUser from "./TableUser";
 
 import { getAllUser } from "../../../services/apiServices";
 import { useEffect } from "react";
-import ModalUpdateUser from "./ModalUpdateUser";
+
 const ManagerUser = (props) => {
   const [listStudent, SetListStudent] = useState([]);
 

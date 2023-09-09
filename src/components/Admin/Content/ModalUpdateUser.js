@@ -5,11 +5,11 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 import { useEffect } from "react";
 
-const ModalUpdateUser = ({ user }) => {
+const ModalUpdateUser = ({ user, fetchListUser }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -18,17 +18,43 @@ const ModalUpdateUser = ({ user }) => {
   const [passWord, setPass] = useState(user.password);
   const [userName, setUserName] = useState(user.username);
   const [role, setRole] = useState(user.role);
-  const [image, setImage] = useState("");
-  const [previewImage, setPreviewImage] = useState(user.image);
+  const [image, setImage] = useState(user.image);
+  const [previewImage, setPreviewImage] = useState("");
 
   useEffect(() => {
     if (!_.isEmpty(user)) {
       setEmail(user.email);
       setUserName(user.username);
       setRole(user.role);
-      setPreviewImage(user.image);
+      setImage("");
+      if (user.image) {
+        setPreviewImage(`data:image/jpeg;base64,${user.image}`);
+      }
     }
   }, [user]);
+
+  const handelUploadImg = (e) => {
+    if (e.target && e.target.files && e.target.files[0]) {
+      setPreviewImage(URL.createObjectURL(e.target.files[0]));
+      setImage(e.target.files[0]);
+    } else {
+      setPreviewImage("");
+    }
+  };
+  const handleSaveUpdate = async (e) => {
+    e.preventDefault();
+
+    const res = await putUpdateUser(user.id, userName, role, image);
+
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+      await fetchListUser();
+      handleClose();
+    } else {
+      toast.error(res.EM);
+      handleClose();
+    }
+  };
   return (
     <>
       <Button className="mx-3" variant="warning" onClick={handleShow}>
@@ -99,14 +125,21 @@ const ModalUpdateUser = ({ user }) => {
                   <span>Upload Image</span>
                 </div>
               </label>
-              <input type="file" name="img" id="labelUpload" hidden />
+              <input
+                type="file"
+                name="img"
+                id="labelUpload"
+                hidden
+                onChange={(e) => {
+                  handelUploadImg(e);
+                }}
+              />
               <div className="img-preview">
                 {previewImage ? (
                   <img
-                    height={150}
-                    width={200}
-                    src={`data:image/jpeg;base64,${previewImage}`}
-                    alt="img"
+                    style={{ width: 200, height: 150 }}
+                    src={`${previewImage}`}
+                    alt="test"
                   />
                 ) : (
                   <span>Preview Image</span>
@@ -119,7 +152,9 @@ const ModalUpdateUser = ({ user }) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary">Save Changes</Button>
+          <Button variant="primary" onClick={handleSaveUpdate}>
+            Save Changes
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
