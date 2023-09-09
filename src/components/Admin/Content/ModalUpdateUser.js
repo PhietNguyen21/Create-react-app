@@ -6,80 +6,38 @@ import { FcPlus } from "react-icons/fc";
 
 import { toast } from "react-toastify";
 import { postCreateNewUser } from "../../../services/apiServices";
+import _ from "lodash";
+import { useEffect } from "react";
 
-const ModalCreateUser = ({ fetchListUser }) => {
+const ModalUpdateUser = ({ user }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [userName, setUserName] = useState("");
-  const [role, setRole] = useState("USER");
+  const [email, setEmail] = useState(user.email);
+  const [passWord, setPass] = useState(user.password);
+  const [userName, setUserName] = useState(user.username);
+  const [role, setRole] = useState(user.role);
   const [image, setImage] = useState("");
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState(user.image);
 
-  const handelUploadImg = (e) => {
-    if (e.target && e.target.files && e.target.files[0]) {
-      setPreviewImage(URL.createObjectURL(e.target.files[0]));
-      setImage(e.target.files[0]);
-    } else {
-      setPreviewImage("");
+  useEffect(() => {
+    if (!_.isEmpty(user)) {
+      setEmail(user.email);
+      setUserName(user.username);
+      setRole(user.role);
+      setPreviewImage(user.image);
     }
-  };
-
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-  const handelExit = () => {
-    handleClose();
-    setEmail("");
-    setImage("");
-    setPass("");
-    setRole("");
-    setUserName("");
-    setPreviewImage("");
-  };
-  const handelSave = async (e) => {
-    e.preventDefault();
-
-    // Validate
-    const isValidEmail = validateEmail(email);
-    if (!isValidEmail) {
-      toast.error("Email Invalid");
-      return;
-    }
-    if (!pass) {
-      toast.error("Invalid Password");
-      return;
-    }
-    // Submit data
-
-    const data = await postCreateNewUser(email, pass, userName, role, image);
-    console.log("check res", data);
-
-    if (data && data.EC === 0) {
-      toast.success(data.EM);
-      await fetchListUser();
-      handelExit();
-    } else {
-      toast.error(data.EM);
-    }
-  };
+  }, [user]);
   return (
     <>
-      <Button className="btn-add" variant="primary" onClick={handleShow}>
-        <FcPlus /> Add new User
+      <Button className="mx-3" variant="warning" onClick={handleShow}>
+        Update
       </Button>
 
-      <Modal show={show} onHide={handelExit} size="xl" backdrop="static">
+      <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Add new users</Modal.Title>
+          <Modal.Title>Update User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="form-container">
@@ -90,6 +48,7 @@ const ModalCreateUser = ({ fetchListUser }) => {
                 name="mail"
                 id="email"
                 value={email}
+                disabled
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -99,9 +58,10 @@ const ModalCreateUser = ({ fetchListUser }) => {
               <label>Password</label>
               <input
                 type="password"
-                name="pass"
+                name="password"
                 id="pass"
-                value={pass}
+                disabled
+                value={passWord}
                 onChange={(e) => {
                   setPass(e.target.value);
                 }}
@@ -139,18 +99,15 @@ const ModalCreateUser = ({ fetchListUser }) => {
                   <span>Upload Image</span>
                 </div>
               </label>
-              <input
-                type="file"
-                name="img"
-                id="labelUpload"
-                hidden
-                onChange={(e) => {
-                  handelUploadImg(e);
-                }}
-              />
+              <input type="file" name="img" id="labelUpload" hidden />
               <div className="img-preview">
                 {previewImage ? (
-                  <img src={`${previewImage}`} alt="test" />
+                  <img
+                    height={150}
+                    width={200}
+                    src={`data:image/jpeg;base64,${previewImage}`}
+                    alt="img"
+                  />
                 ) : (
                   <span>Preview Image</span>
                 )}
@@ -159,15 +116,13 @@ const ModalCreateUser = ({ fetchListUser }) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handelExit}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handelSave}>
-            Save Changes
-          </Button>
+          <Button variant="primary">Save Changes</Button>
         </Modal.Footer>
       </Modal>
     </>
   );
 };
-export default ModalCreateUser;
+export default ModalUpdateUser;

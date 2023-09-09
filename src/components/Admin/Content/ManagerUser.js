@@ -5,10 +5,8 @@ import TableUser from "./TableUser";
 
 import { getAllUser } from "../../../services/apiServices";
 import { useEffect } from "react";
+import ModalUpdateUser from "./ModalUpdateUser";
 const ManagerUser = (props) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [listStudent, SetListStudent] = useState([]);
 
   // GET ALL USER
@@ -25,25 +23,12 @@ const ManagerUser = (props) => {
     <div className="manager-user-container">
       <div className="title">Manager User</div>
       <div className="user-content">
-        <button
-          className="btn-addUser"
-          onClick={(e) => {
-            handleShow();
-          }}
-        >
-          <FcPlus />
-          <span>Add new users</span>
-        </button>
+        <div style={{ width: "fit-content", marginBottom: 20 }}>
+          <ModalCreateUser fetchListUser={fetchListUser} />
+        </div>
+
         <div>
           <TableUser listStudent={listStudent} fetchListUser={fetchListUser} />
-        </div>
-        <div>
-          <ModalCreateUser
-            show={show}
-            handleClose={handleClose}
-            handleShow={handleShow}
-            fetchListUser={fetchListUser}
-          />
         </div>
       </div>
     </div>

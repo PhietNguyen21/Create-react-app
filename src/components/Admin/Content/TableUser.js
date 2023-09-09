@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
+import ModalUpdateUser from "./ModalUpdateUser";
 
-const TableUser = ({ listStudent, fetchListUser }) => {
+const TableUser = ({ listStudent, fetchListUser, showUpdateUser }) => {
   return (
     <>
       <Table striped bordered hover variant="dark">
@@ -28,7 +29,7 @@ const TableUser = ({ listStudent, fetchListUser }) => {
                   <td>{item.role}</td>
                   <td>
                     <button className="btn btn-secondary">View</button>
-                    <button className="btn btn-warning mx-3">Update</button>
+                    <ModalUpdateUser user={item} />
                     <button className="btn btn-danger">Delete</button>
                   </td>
                 </tr>
