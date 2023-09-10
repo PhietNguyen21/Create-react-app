@@ -13,6 +13,8 @@ const ModalUpdateUser = ({
   user,
   fetchListUser,
   fetchListUserWithPanigate,
+  setCurrentPage,
+  currentPage,
 }) => {
   const [show, setShow] = useState(false);
 
@@ -52,7 +54,8 @@ const ModalUpdateUser = ({
 
     if (res && res.EC === 0) {
       toast.success(res.EM);
-      await fetchListUser();
+      setCurrentPage(1);
+      await fetchListUserWithPanigate(1);
       handleClose();
     } else {
       toast.error(res.EM);

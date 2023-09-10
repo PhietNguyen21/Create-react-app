@@ -13,11 +13,12 @@ import TableUserPaginate from "./TableUserPaginate";
 const ManagerUser = (props) => {
   const [listStudent, SetListStudent] = useState([]);
   const [countPage, setCountPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const LIMIT_USER = 6;
   // GET ALL USER
 
   useEffect(() => {
-    fetchListUserWithPanigate(countPage);
+    fetchListUserWithPanigate(currentPage);
   }, []);
 
   const fetchListUser = async () => {
@@ -40,7 +41,12 @@ const ManagerUser = (props) => {
       <div className="title">Manager User</div>
       <div className="user-content">
         <div style={{ width: "fit-content", marginBottom: 20 }}>
-          <ModalCreateUser fetchListUser={fetchListUser} />
+          <ModalCreateUser
+            fetchListUser={fetchListUser}
+            fetchListUserWithPanigate={fetchListUserWithPanigate}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
 
         <div>
@@ -50,6 +56,8 @@ const ManagerUser = (props) => {
             fetchListUserWithPanigate={fetchListUserWithPanigate}
             fetchListUser={fetchListUser}
             countPage={countPage}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
         </div>
       </div>

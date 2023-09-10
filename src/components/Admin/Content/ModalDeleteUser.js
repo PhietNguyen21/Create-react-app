@@ -7,7 +7,13 @@ import { FcPlus } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { deleteUser, postCreateNewUser } from "../../../services/apiServices";
 
-const ModalDeleteUser = ({ fetchListUser, user }) => {
+const ModalDeleteUser = ({
+  fetchListUser,
+  user,
+  fetchListUserWithPanigate,
+  setCurrentPage,
+  currentPage,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -31,7 +37,8 @@ const ModalDeleteUser = ({ fetchListUser, user }) => {
     if (res.EC === 0) {
       toast.success(res.EM);
       handleClose();
-      await fetchListUser();
+      setCurrentPage(1);
+      await fetchListUserWithPanigate(1);
     } else {
       toast.error(res.EM);
       handleClose();

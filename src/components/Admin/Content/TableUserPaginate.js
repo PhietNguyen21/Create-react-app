@@ -12,11 +12,13 @@ const TableUserPaginate = ({
   listStudent,
   fetchListUserWithPanigate,
   fetchListUser,
-  showUpdateUser,
   countPage,
+  currentPage,
+  setCurrentPage,
 }) => {
   const handlePageClick = (event) => {
     fetchListUserWithPanigate(+event.selected + 1);
+    setCurrentPage(+event.selected + 1);
     //   console.log(`User requested page number ${event.selected}`);
   };
   return (
@@ -47,11 +49,15 @@ const TableUserPaginate = ({
                       fetchListUser={fetchListUser}
                       fetchListUserWithPanigate={fetchListUserWithPanigate}
                       user={item}
+                      setCurrentPage={setCurrentPage}
+                      currentPage={setCurrentPage}
                     />
                     <ModalDeleteUser
                       user={item}
                       fetchListUser={fetchListUser}
                       fetchListUserWithPanigate={fetchListUserWithPanigate}
+                      setCurrentPage={setCurrentPage}
+                      currentPage={setCurrentPage}
                     />
                   </td>
                 </tr>
@@ -85,6 +91,7 @@ const TableUserPaginate = ({
           containerClassName="pagination"
           activeClassName="active"
           renderOnZeroPageCount={null}
+          forcePage={+currentPage - 1}
         />
       </div>
     </>
