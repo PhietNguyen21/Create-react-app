@@ -35,7 +35,10 @@ const TableUser = ({ listStudent, fetchListUser, showUpdateUser }) => {
                       fetchListUser={fetchListUser}
                       user={item}
                     />
-                    <ModalDeleteUser user={item} />
+                    <ModalDeleteUser
+                      user={item}
+                      fetchListUser={fetchListUser}
+                    />
                   </td>
                 </tr>
               );

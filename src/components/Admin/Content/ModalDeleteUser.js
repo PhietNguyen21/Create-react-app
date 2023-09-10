@@ -15,7 +15,7 @@ const ModalDeleteUser = ({ fetchListUser, user }) => {
 
   const [email, setEmail] = useState(user.email);
 
-  useEffect(() => {}, [user]);
+  //   useEffect(() => {}, [user]);
 
   const handelExit = () => {
     handleClose();
@@ -28,7 +28,14 @@ const ModalDeleteUser = ({ fetchListUser, user }) => {
 
     // Submit data
     const res = await deleteUser(user.id);
-    console.log(res);
+    if (res.EC === 0) {
+      toast.success(res.EM);
+      handleClose();
+      await fetchListUser();
+    } else {
+      toast.error(res.EM);
+      handleClose();
+    }
   };
   return (
     <>
