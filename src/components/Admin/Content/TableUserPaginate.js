@@ -50,7 +50,7 @@ const TableUserPaginate = ({
                       fetchListUserWithPanigate={fetchListUserWithPanigate}
                       user={item}
                       setCurrentPage={setCurrentPage}
-                      currentPage={setCurrentPage}
+                      currentPage={currentPage}
                     />
                     <ModalDeleteUser
                       user={item}

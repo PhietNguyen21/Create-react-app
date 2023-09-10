@@ -38,7 +38,7 @@ const ModalUpdateUser = ({
       }
     }
   }, [user]);
-
+  console.log(currentPage);
   const handelUploadImg = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
@@ -54,9 +54,8 @@ const ModalUpdateUser = ({
 
     if (res && res.EC === 0) {
       toast.success(res.EM);
-      setCurrentPage(1);
-      await fetchListUserWithPanigate(1);
       handleClose();
+      await fetchListUserWithPanigate(currentPage);
     } else {
       toast.error(res.EM);
       handleClose();
