@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalPreviewUser from "./ModalPreviewUser";
+import ModalDeleteUser from "./ModalDeleteUser";
 
 const TableUser = ({ listStudent, fetchListUser, showUpdateUser }) => {
   return (
@@ -22,18 +24,18 @@ const TableUser = ({ listStudent, fetchListUser, showUpdateUser }) => {
             listStudent.length > 0 &&
             listStudent.map((item, index) => {
               return (
-                <tr>
+                <tr key={`table-${index}`}>
                   <td>{item.id}</td>
                   <td>{item.username}</td>
                   <td>{item.email}</td>
                   <td>{item.role}</td>
                   <td>
-                    <button className="btn btn-secondary">View</button>
+                    <ModalPreviewUser user={item} />
                     <ModalUpdateUser
                       fetchListUser={fetchListUser}
                       user={item}
                     />
-                    <button className="btn btn-danger">Delete</button>
+                    <ModalDeleteUser user={item} />
                   </td>
                 </tr>
               );

@@ -5,20 +5,33 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
+import _ from "lodash";
+import { useEffect } from "react";
 
-const ModalCreateUser = ({ fetchListUser }) => {
+const ModalPreviewUser = ({ user, fetchListUser }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [userName, setUserName] = useState("");
-  const [role, setRole] = useState("USER");
-  const [image, setImage] = useState("");
+  const [email, setEmail] = useState(user.email);
+  const [passWord, setPass] = useState(user.password);
+  const [userName, setUserName] = useState(user.username);
+  const [role, setRole] = useState(user.role);
+  const [image, setImage] = useState(user.image);
   const [previewImage, setPreviewImage] = useState("");
+
+  useEffect(() => {
+    if (!_.isEmpty(user)) {
+      setEmail(user.email);
+      setUserName(user.username);
+      setRole(user.role);
+      setImage("");
+      if (user.image) {
+        setPreviewImage(`data:image/jpeg;base64,${user.image}`);
+      }
+    }
+  }, [user]);
 
   const handelUploadImg = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
@@ -28,58 +41,29 @@ const ModalCreateUser = ({ fetchListUser }) => {
       setPreviewImage("");
     }
   };
-
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
-  const handelExit = () => {
-    handleClose();
-    setEmail("");
-    setImage("");
-    setPass("");
-    setRole("");
-    setUserName("");
-    setPreviewImage("");
-  };
-  const handelSave = async (e) => {
+  const handleSaveUpdate = async (e) => {
     e.preventDefault();
 
-    // Validate
-    const isValidEmail = validateEmail(email);
-    if (!isValidEmail) {
-      toast.error("Email Invalid");
-      return;
-    }
-    if (!pass) {
-      toast.error("Invalid Password");
-      return;
-    }
-    // Submit data
+    const res = await putUpdateUser(user.id, userName, role, image);
 
-    const data = await postCreateNewUser(email, pass, userName, role, image);
-    console.log("check res", data);
-
-    if (data && data.EC === 0) {
-      toast.success(data.EM);
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
       await fetchListUser();
-      handelExit();
+      handleClose();
     } else {
-      toast.error(data.EM);
+      toast.error(res.EM);
+      handleClose();
     }
   };
   return (
     <>
-      <Button className="btn-add" variant="primary" onClick={handleShow}>
-        <FcPlus /> Add new User
+      <Button variant="secondary" onClick={handleShow}>
+        View
       </Button>
 
-      <Modal show={show} onHide={handelExit} size="xl" backdrop="static">
+      <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title>Add new users</Modal.Title>
+          <Modal.Title>Preivew User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="form-container">
@@ -90,6 +74,7 @@ const ModalCreateUser = ({ fetchListUser }) => {
                 name="mail"
                 id="email"
                 value={email}
+                disabled
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -99,9 +84,10 @@ const ModalCreateUser = ({ fetchListUser }) => {
               <label>Password</label>
               <input
                 type="password"
-                name="pass"
+                name="password"
                 id="pass"
-                value={pass}
+                disabled
+                value={passWord}
                 onChange={(e) => {
                   setPass(e.target.value);
                 }}
@@ -114,6 +100,7 @@ const ModalCreateUser = ({ fetchListUser }) => {
                 name="nameUser"
                 id="nameUser"
                 value={userName}
+                disabled
                 onChange={(e) => {
                   setUserName(e.target.value);
                 }}
@@ -122,6 +109,7 @@ const ModalCreateUser = ({ fetchListUser }) => {
             <div className="form-group role">
               <label>Role</label>
               <select
+                disabled
                 id="state"
                 onChange={(e) => {
                   setRole(e.target.value);
@@ -133,24 +121,14 @@ const ModalCreateUser = ({ fetchListUser }) => {
             </div>
 
             <div className="form-image">
-              <label className="label-upload" htmlFor="labelUpload">
-                <div>
-                  <FcPlus />
-                  <span>Upload Image</span>
-                </div>
-              </label>
-              <input
-                type="file"
-                name="img"
-                id="labelUpload"
-                hidden
-                onChange={(e) => {
-                  handelUploadImg(e);
-                }}
-              />
+              <input type="file" name="img" hidden />
               <div className="img-preview">
                 {previewImage ? (
-                  <img src={`${previewImage}`} alt="test" />
+                  <img
+                    style={{ width: 200, height: 150 }}
+                    src={`${previewImage}`}
+                    alt="test"
+                  />
                 ) : (
                   <span>Preview Image</span>
                 )}
@@ -159,15 +137,12 @@ const ModalCreateUser = ({ fetchListUser }) => {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handelExit}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handelSave}>
-            Add User
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
 };
-export default ModalCreateUser;
+export default ModalPreviewUser;
