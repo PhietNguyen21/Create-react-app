@@ -9,7 +9,11 @@ import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 import { useEffect } from "react";
 
-const ModalUpdateUser = ({ user, fetchListUser }) => {
+const ModalUpdateUser = ({
+  user,
+  fetchListUser,
+  fetchListUserWithPanigate,
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

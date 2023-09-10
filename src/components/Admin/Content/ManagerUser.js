@@ -3,20 +3,36 @@ import ModalCreateUser from "./ModalCreateUser";
 import { FcPlus } from "react-icons/fc";
 import TableUser from "./TableUser";
 
-import { getAllUser } from "../../../services/apiServices";
+import {
+  getAllUser,
+  getUserWithPagination,
+} from "../../../services/apiServices";
 import { useEffect } from "react";
+import TableUserPaginate from "./TableUserPaginate";
 
 const ManagerUser = (props) => {
   const [listStudent, SetListStudent] = useState([]);
-
+  const [countPage, setCountPage] = useState(1);
+  const LIMIT_USER = 6;
   // GET ALL USER
+
   useEffect(() => {
-    fetchListUser();
+    fetchListUserWithPanigate(countPage);
   }, []);
+
   const fetchListUser = async () => {
     const res = await getAllUser();
     if (res.EC === 0) {
       SetListStudent(res.DT);
+    }
+  };
+
+  const fetchListUserWithPanigate = async (page) => {
+    const res = await getUserWithPagination(page, LIMIT_USER);
+    console.log(res);
+    if (res.EC === 0) {
+      SetListStudent(res.DT.users);
+      setCountPage(res.DT.totalPages);
     }
   };
   return (
@@ -28,7 +44,13 @@ const ManagerUser = (props) => {
         </div>
 
         <div>
-          <TableUser listStudent={listStudent} fetchListUser={fetchListUser} />
+          {/* <TableUser listStudent={listStudent} fetchListUser={fetchListUser} /> */}
+          <TableUserPaginate
+            listStudent={listStudent}
+            fetchListUserWithPanigate={fetchListUserWithPanigate}
+            fetchListUser={fetchListUser}
+            countPage={countPage}
+          />
         </div>
       </div>
     </div>
