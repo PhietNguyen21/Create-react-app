@@ -1,10 +1,11 @@
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Typography, Space } from "antd";
 import {
   EyeOutlined,
   EyeInvisibleOutlined,
   UserOutlined,
   LockOutlined,
   MailOutlined,
+  BackwardOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./Register.scss";
@@ -19,6 +20,7 @@ const Register = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+  const { Text, Link } = Typography;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEdit({
@@ -36,12 +38,29 @@ const Register = () => {
       toast.error(res.EM);
     }
   };
+  const clickBackHome = () => {
+    navigate("/");
+  };
 
   return (
     <>
-      <div className="div_Res" style={{ marginTop: 100 }}>
+      <div className="div_Res">
         <div className="row">
-          <div className="col-4 offset-4">
+          <div
+            className="Title col-12"
+            style={{ marginTop: 10, textAlign: "right", paddingRight: "50px" }}
+          >
+            Don't have an account yet?{" "}
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </Button>{" "}
+            Need help?
+          </div>
+          <div className="col-4 offset-4 mt-5">
             <Form
               name="normal_registration"
               className="registration-form"
@@ -98,7 +117,6 @@ const Register = () => {
                     onChange={handleChange}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     placeholder="Password"
-                    value={edit.password}
                     name="password"
                     type={passwordVisible ? "text" : "password"}
                     suffix={
@@ -114,14 +132,12 @@ const Register = () => {
                         />
                       )
                     }
-                    // autoFocus={passwordVisible ? false : true}
+                    autoFocus={passwordVisible ? false : true}
                   />
                 </Form.Item>
-
                 <Form.Item>
                   <Checkbox>Agree to the terms </Checkbox>
                 </Form.Item>
-
                 <Form.Item labelCol={{ span: 12 }}>
                   <Button
                     onClick={onRegister}
@@ -132,6 +148,16 @@ const Register = () => {
                     Resigter
                   </Button>
                 </Form.Item>
+                <Space
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                  onClick={clickBackHome}
+                >
+                  <BackwardOutlined /> <Text>Go to home</Text>
+                </Space>
               </div>
             </Form>
           </div>
