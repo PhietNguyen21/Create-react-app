@@ -98,6 +98,7 @@ const Register = () => {
                     onChange={handleChange}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     placeholder="Password"
+                    value={edit.password}
                     name="password"
                     type={passwordVisible ? "text" : "password"}
                     suffix={
