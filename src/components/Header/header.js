@@ -42,7 +42,14 @@ const Header = () => {
             >
               Login
             </button>
-            <button className="btn-signUp">Sign up</button>
+            <button
+              className="btn-signUp"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Sign up
+            </button>
             {/* <NavDropdown title="Settings" id="basic-nav-dropdown">      
               <NavDropdown.Item>Login</NavDropdown.Item>
               <NavDropdown.Item>Log out</NavDropdown.Item>

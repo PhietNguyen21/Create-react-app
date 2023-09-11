@@ -46,7 +46,15 @@ const Login = () => {
   return (
     <div className="row div_Login">
       <div className="Title col-12">
-        Don't have an account yet? <Button>Sign up</Button> Need help?
+        Don't have an account yet?{" "}
+        <Button
+          onClick={() => {
+            navigate("/register");
+          }}
+        >
+          Sign up
+        </Button>{" "}
+        Need help?
       </div>
       <div className="div_form col-4 offset-4 mt-5">
         <Form
