@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import {
+  LockOutlined,
+  UserOutlined,
+  BackwardOutlined,
+} from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Space, Typography } from "antd";
 
 import "./Login.scss";
-import { Link } from "react-router-dom";
 
-const onFinish = (values) => {
-  //   console.log("Received values of form: ", values);
-};
+import { postLogin } from "../../services/apiServices";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const { Text, Link } = Typography;
   const [edit, setEdit] = useState({ email: "", password: "" });
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     setEdit({
       ...edit,
       [name]: value,
@@ -22,6 +27,22 @@ const Login = () => {
   //   useEffect(() => {
   //     console.log(edit);
   //   }, [edit]);
+  const navigate = useNavigate();
+  const clickBackHome = () => {
+    navigate("/");
+  };
+  const onFinish = (values) => {
+    //   console.log("Received values of form: ", values);
+  };
+  const onLogin = async () => {
+    const res = await postLogin(edit.email, edit.password);
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+      navigate("/");
+    } else {
+      toast.error(res.EM);
+    }
+  };
   return (
     <div className="row div_Login">
       <div className="Title col-12">
@@ -91,6 +112,7 @@ const Login = () => {
 
             <Form.Item labelCol={{ span: 12 }}>
               <Button
+                onClick={onLogin}
                 type="primary"
                 htmlType="submit"
                 className="login-form-button w-100"
@@ -98,6 +120,17 @@ const Login = () => {
                 Log in
               </Button>
             </Form.Item>
+
+            <Space
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "center",
+              }}
+              onClick={clickBackHome}
+            >
+              <BackwardOutlined /> <Text>Go to home</Text>
+            </Space>
           </div>
         </Form>
       </div>
