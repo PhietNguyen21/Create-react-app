@@ -37,21 +37,23 @@ const SideBar = (props) => {
       onToggle={handleToggleSidebar}
     >
       <SidebarHeader>
-        <div
-          style={{
-            padding: "24px",
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            fontSize: 14,
-            letterSpacing: "1px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          <DiReact size={"3em"} color="00bfff" />
-          <span>JONATHAN</span>
-        </div>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <div
+            style={{
+              padding: "24px",
+              textTransform: "uppercase",
+              fontWeight: "bold",
+              fontSize: 14,
+              letterSpacing: "1px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <DiReact size={"3em"} color="00bfff" />
+            <span>JONATHAN</span>
+          </div>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
