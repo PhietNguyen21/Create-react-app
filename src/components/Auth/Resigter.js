@@ -33,7 +33,7 @@ const Register = () => {
     const res = await postRegister(edit.email, edit.password, edit.username);
     if (res && res.EC === 0) {
       toast.success(res.EM);
-      navigate("/");
+      navigate("/login");
     } else {
       toast.error(res.EM);
     }
@@ -145,7 +145,7 @@ const Register = () => {
                     htmlType="submit"
                     className="register-form-button w-100"
                   >
-                    Resigter
+                    Create my free account
                   </Button>
                 </Form.Item>
                 <Space
