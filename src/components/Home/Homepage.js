@@ -1,6 +1,11 @@
+import { useSelector } from "react-redux";
 import videoHomePage from "../../assets/video-homepage.mp4";
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = (props) => {
+  const isAuth = useSelector((state) => state?.loginReducer?.isAuth);
+  const navigate = useNavigate();
   return (
     <div className="homepage-container">
       <div className="homepage">
@@ -16,7 +21,27 @@ const Homepage = (props) => {
           </p>
 
           <div>
-            <button className="btn-free">Get's started.It's free</button>
+            {isAuth ? (
+              <Button
+                onClick={() => {
+                  navigate("/users");
+                }}
+                size="large"
+                type="primary"
+              >
+                Doing Quiz Now
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  navigate("/login");
+                }}
+                size="large"
+                className="btn-free"
+              >
+                Get's started.It's free
+              </Button>
+            )}
           </div>
         </div>
       </div>

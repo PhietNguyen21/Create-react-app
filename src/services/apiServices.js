@@ -50,6 +50,16 @@ const postRegister = (email, password, username) => {
     username,
   });
 };
+
+const getQuizByParticipant = () => {
+  // let config = {
+  //   headers: {
+  //     Authorization: "Bearer " + access_token,
+  //   },
+  // };
+
+  return axios.get("http://localhost:8081/api/v1/quiz-by-participant");
+};
 export {
   postCreateNewUser,
   getAllUser,
@@ -58,4 +68,5 @@ export {
   getUserWithPagination,
   postLogin,
   postRegister,
+  getQuizByParticipant,
 };
