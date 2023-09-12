@@ -5,16 +5,18 @@ import {
   BackwardOutlined,
 } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space, Typography } from "antd";
-
+import { useDispatch } from "react-redux";
 import "./Login.scss";
 
 import { postLogin } from "../../services/apiServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import loginAction from "../../redux/action/loginAction";
 
 const Login = () => {
   const { Text, Link } = Typography;
   const [edit, setEdit] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -36,7 +38,9 @@ const Login = () => {
   };
   const onLogin = async () => {
     const res = await postLogin(edit.email, edit.password);
+
     if (res && res.EC === 0) {
+      dispatch(loginAction(res));
       toast.success(res.EM);
       navigate("/");
     } else {
