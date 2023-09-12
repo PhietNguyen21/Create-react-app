@@ -36,7 +36,11 @@ const getUserWithPagination = (page, limit) => {
 };
 
 const postLogin = (email, password) => {
-  return axios.post("http://localhost:8081/api/v1/login", { email, password });
+  return axios.post("http://localhost:8081/api/v1/login", {
+    email,
+    password,
+    delay: 5000,
+  });
 };
 
 const postRegister = (email, password, username) => {

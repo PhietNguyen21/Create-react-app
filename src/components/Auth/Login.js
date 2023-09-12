@@ -4,7 +4,7 @@ import {
   UserOutlined,
   BackwardOutlined,
 } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Space, Typography } from "antd";
+import { Button, Checkbox, Form, Input, Space, Typography, Spin } from "antd";
 import { useDispatch } from "react-redux";
 import "./Login.scss";
 
@@ -16,6 +16,8 @@ import loginAction from "../../redux/action/loginAction";
 const Login = () => {
   const { Text, Link } = Typography;
   const [edit, setEdit] = useState({ email: "", password: "" });
+  const [loadings, setLoadings] = useState(false);
+
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,11 +38,15 @@ const Login = () => {
   const onFinish = (values) => {
     //   console.log("Received values of form: ", values);
   };
+  // ANT LOADING BTN
   const onLogin = async () => {
+    setLoadings(true);
     const res = await postLogin(edit.email, edit.password);
 
+    setLoadings(false);
     if (res && res.EC === 0) {
       dispatch(loginAction(res));
+
       toast.success(res.EM);
       navigate("/");
     } else {
@@ -124,10 +130,12 @@ const Login = () => {
 
             <Form.Item labelCol={{ span: 12 }}>
               <Button
-                onClick={onLogin}
                 type="primary"
+                onClick={onLogin}
                 htmlType="submit"
+                icon={loadings ? <Spin size="small" /> : null}
                 className="login-form-button w-100"
+                disabled={loadings}
               >
                 Log in
               </Button>
