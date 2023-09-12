@@ -2,15 +2,18 @@ import { Card, Button } from "antd";
 import { useEffect, useState } from "react";
 import { getQuizByParticipant } from "../../services/apiServices";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const ListQuiz = () => {
   const [listCard, setListCard] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getQuizData();
   }, []);
   const getQuizData = async () => {
     const res = await getQuizByParticipant();
-    console.log(res);
+
     if (res && res.EC === 0) {
       setListCard(res.DT);
     } else {
@@ -41,7 +44,14 @@ const ListQuiz = () => {
               />
               <p>{item.description}</p>
               <div style={{ textAlign: "center" }}>
-                <Button type="primary">Start Now</Button>
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    navigate(`/quiz/${item.ParticipantQuiz.quiz_id}`);
+                  }}
+                >
+                  Start Now
+                </Button>
               </div>
             </Card>
           );

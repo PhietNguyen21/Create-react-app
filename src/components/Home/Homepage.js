@@ -34,7 +34,7 @@ const Homepage = (props) => {
             ) : (
               <Button
                 onClick={() => {
-                  navigate("/login");
+                  navigate("/users");
                 }}
                 size="large"
                 className="btn-free"
