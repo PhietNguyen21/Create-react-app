@@ -53,6 +53,7 @@ const DetailsQuiz = () => {
             let obj = {
               description: item.answers.description,
               answerId: item.answers.id,
+              isSelected: false,
             };
             arrAnswers.push(obj);
           });
@@ -73,12 +74,43 @@ const DetailsQuiz = () => {
     }
   };
 
+  // useEffect(() => {
+  //   console.log(listQues);
+  // }, [listQues]);
+  const checkboxAnswer = (answerID, questionID) => {
+    let listQuesNew = _.cloneDeep(listQues);
+    let question = listQuesNew.find(
+      (item) => +item.question_id === +questionID
+    );
+
+    if (question) {
+      let arrAnswersNew = question.answers.map((item, index) => {
+        if (item.answerId === answerID) {
+          item.isSelected = !item.isSelected;
+        }
+        return item;
+      });
+      question.answers = arrAnswersNew;
+      // console.log("Quesstion", question);
+    }
+    let index = listQuesNew.findIndex(
+      (item) => +item.question_id === +questionID
+    );
+    console.log(listQuesNew[index]);
+    if (index !== -1) {
+      listQuesNew[index] = question;
+      // console.log("UPDATE LIST NEW", listQuesNew);
+      setListQues(listQuesNew);
+    }
+  };
+
   return (
     <div className="detail_quiz_container">
-      <div className="left-content">
+      <div className="left-content" style={{ padding: 10 }}>
         <div className="title">
-          <Title>{QuizDes}</Title>
+          <Title level={2}>{`Quiz ${indexQuiz + 1} :`}</Title>
         </div>
+        <div className="line"></div>
         <div className="img">
           <img alt="" />
         </div>
@@ -86,18 +118,21 @@ const DetailsQuiz = () => {
           <div className="question"></div>
           <div className="answer">
             <Answer
+              checkboxAnswer={checkboxAnswer}
               index={indexQuiz + 1}
               quiz={listQues && listQues.length > 0 ? listQues[indexQuiz] : ""}
             />
           </div>
         </div>
 
-        <div className="footer" style={{ textAlign: "center" }}>
+        <div
+          className="footer"
+          style={{ textAlign: "center", marginBottom: "10px" }}
+        >
           <Button
             onClick={onClickPrevQuiz}
-            type="primary"
             size="middle"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", backgroundColor: "#6c757d" }}
           >
             Prev
           </Button>
@@ -105,10 +140,12 @@ const DetailsQuiz = () => {
             onClick={onClickNextQuiz}
             type="primary"
             size="middle"
-            className="mx-auto"
+            style={{ marginRight: "10px" }}
           >
             Next
           </Button>
+
+          <Button style={{ backgroundColor: "#ffc107" }}>Finish</Button>
         </div>
       </div>
       <div className="right-content">sssss</div>
