@@ -5,17 +5,30 @@ import "./DetailsQuiz.scss";
 
 import _ from "lodash";
 import { Button, Typography } from "antd";
+import Answer from "./Answer";
 const DetailsQuiz = () => {
   const { Title } = Typography;
   const param = useParams();
   // console.log(">>> Check param:", param);
   const location = useLocation();
 
-  const [listQues, setListQues] = useState();
+  const [listQues, setListQues] = useState([]);
+  const [indexQuiz, setIndexQuiz] = useState(0);
 
   const { QuizDes } = location?.state;
   const quiz_id = param.id;
 
+  const onClickNextQuiz = () => {
+    if (listQues && listQues.length > indexQuiz + 1) {
+      setIndexQuiz(indexQuiz + 1);
+    }
+  };
+
+  const onClickPrevQuiz = () => {
+    if (indexQuiz > 0) {
+      setIndexQuiz(indexQuiz - 1);
+    }
+  };
   useEffect(() => {
     fetchListQuestion();
   }, [quiz_id]);
@@ -72,23 +85,28 @@ const DetailsQuiz = () => {
         <div className="content">
           <div className="question"></div>
           <div className="answer">
-            <div className="title-answer">
-              <Title mark={true} italic={true} underline level={3}>
-                {" "}
-                {listQues[0]?.questionDescription}?
-              </Title>
-            </div>
-            <div className="item-answer">A.1232</div>
-            <div className="item-answer">A.145</div>
-            <div className="item-answer">A.4678</div>
+            <Answer
+              index={indexQuiz + 1}
+              quiz={listQues && listQues.length > 0 ? listQues[indexQuiz] : ""}
+            />
           </div>
         </div>
 
         <div className="footer" style={{ textAlign: "center" }}>
-          <Button type="primary" size="middle" style={{ marginRight: "10px" }}>
+          <Button
+            onClick={onClickPrevQuiz}
+            type="primary"
+            size="middle"
+            style={{ marginRight: "10px" }}
+          >
             Prev
           </Button>
-          <Button type="primary" size="middle" className="mx-auto">
+          <Button
+            onClick={onClickNextQuiz}
+            type="primary"
+            size="middle"
+            className="mx-auto"
+          >
             Next
           </Button>
         </div>
