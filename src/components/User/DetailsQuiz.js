@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { getQuestionByQuizId } from "../../services/apiServices";
+import {
+  getQuestionByQuizId,
+  postSubmitAnswer,
+} from "../../services/apiServices";
 import "./DetailsQuiz.scss";
 
 import _ from "lodash";
 import { Button, Typography } from "antd";
 import Answer from "./Answer";
+import ModalResult from "./ModalResult";
 const DetailsQuiz = () => {
   const { Title } = Typography;
   const param = useParams();
   // console.log(">>> Check param:", param);
   const location = useLocation();
-
   const [listQues, setListQues] = useState([]);
   const [indexQuiz, setIndexQuiz] = useState(0);
+  const [dataResult, setDataResult] = useState(null);
 
   const { QuizDes } = location?.state;
   const quiz_id = param.id;
@@ -104,7 +108,7 @@ const DetailsQuiz = () => {
     }
   };
 
-  const submitAnswer = () => {
+  const submitAnswer = async () => {
     //   {
     //     "quizId": 1,
     //     "answers": [
@@ -119,8 +123,8 @@ const DetailsQuiz = () => {
     //     ]
     // }
 
-    console.log("data before submit", listQues);
-    const obj = {
+    // console.log("data before submit", listQues);
+    const payload = {
       quizId: +quiz_id,
       answers: [],
     };
@@ -136,16 +140,22 @@ const DetailsQuiz = () => {
         }
       });
 
-      obj.answers.push(objAnswer);
+      payload.answers.push(objAnswer);
     });
-    console.log("data submit", obj);
+    const res = await postSubmitAnswer(payload);
+
+    if (res && res.EC === 0) {
+      setDataResult(res.DT);
+    } else {
+      console.log(res.EM);
+    }
   };
 
   return (
     <div className="detail_quiz_container">
       <div className="left-content" style={{ padding: 10 }}>
         <div className="title">
-          <Title level={2}>{`Quiz ${indexQuiz + 1} :`}</Title>
+          <Title level={2}>{`Quiz ${indexQuiz + 1} :${QuizDes}`}</Title>
         </div>
         <div className="line"></div>
         <div className="img">
@@ -182,9 +192,7 @@ const DetailsQuiz = () => {
             Next
           </Button>
 
-          <Button onClick={submitAnswer} style={{ backgroundColor: "#ffc107" }}>
-            Finish
-          </Button>
+          <ModalResult dataResult={dataResult} submitAnswer={submitAnswer} />
         </div>
       </div>
       <div className="right-content">sssss</div>

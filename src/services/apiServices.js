@@ -66,6 +66,10 @@ const getQuestionByQuizId = (id) => {
     `http://localhost:8081/api/v1/questions-by-quiz?quizId=${id}`
   );
 };
+
+const postSubmitAnswer = (data) => {
+  return axios.post("http://localhost:8081/api/v1/quiz-submit", { ...data });
+};
 export {
   postCreateNewUser,
   getAllUser,
@@ -76,4 +80,5 @@ export {
   postRegister,
   getQuizByParticipant,
   getQuestionByQuizId,
+  postSubmitAnswer,
 };
