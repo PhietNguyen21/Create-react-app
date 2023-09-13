@@ -35,7 +35,7 @@ const DetailsQuiz = () => {
 
   const fetchListQuestion = async () => {
     const res = await getQuestionByQuizId(quiz_id);
-    console.log(res);
+    // console.log(res);
     if (res && res.EC === 0) {
       let data = _.chain(res.DT)
 
@@ -67,7 +67,7 @@ const DetailsQuiz = () => {
           };
         })
         .value();
-      console.log(data);
+      // console.log(data);
       setListQues(data);
     } else {
       console.log(res.EM);
@@ -96,12 +96,49 @@ const DetailsQuiz = () => {
     let index = listQuesNew.findIndex(
       (item) => +item.question_id === +questionID
     );
-    console.log(listQuesNew[index]);
+    // console.log(listQuesNew[index]);
     if (index !== -1) {
       listQuesNew[index] = question;
       // console.log("UPDATE LIST NEW", listQuesNew);
       setListQues(listQuesNew);
     }
+  };
+
+  const submitAnswer = () => {
+    //   {
+    //     "quizId": 1,
+    //     "answers": [
+    //         {
+    //             "questionId": 1,
+    //             "userAnswerId": [3]
+    //         },
+    //         {
+    //             "questionId": 2,
+    //             "userAnswerId": [6]
+    //         }
+    //     ]
+    // }
+
+    console.log("data before submit", listQues);
+    const obj = {
+      quizId: +quiz_id,
+      answers: [],
+    };
+    const listQuesNew = _.cloneDeep(listQues);
+    listQuesNew.forEach((item, index) => {
+      let objAnswer = {
+        questionId: +item.question_id,
+        userAnswerId: [],
+      };
+      item.answers.forEach((answer, index) => {
+        if (answer.isSelected) {
+          objAnswer.userAnswerId.push(answer.answerId);
+        }
+      });
+
+      obj.answers.push(objAnswer);
+    });
+    console.log("data submit", obj);
   };
 
   return (
@@ -145,7 +182,9 @@ const DetailsQuiz = () => {
             Next
           </Button>
 
-          <Button style={{ backgroundColor: "#ffc107" }}>Finish</Button>
+          <Button onClick={submitAnswer} style={{ backgroundColor: "#ffc107" }}>
+            Finish
+          </Button>
         </div>
       </div>
       <div className="right-content">sssss</div>
