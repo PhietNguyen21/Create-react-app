@@ -47,7 +47,9 @@ const ListQuiz = () => {
                 <Button
                   type="primary"
                   onClick={() => {
-                    navigate(`/quiz/${item.ParticipantQuiz.quiz_id}`);
+                    navigate(`/quiz/${item.ParticipantQuiz.quiz_id} `, {
+                      state: { QuizDes: item.description },
+                    });
                   }}
                 >
                   Start Now
