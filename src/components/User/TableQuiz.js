@@ -2,6 +2,7 @@ import Table from "react-bootstrap/Table";
 import { getAllQuiz } from "../../services/apiServices";
 import { useState } from "react";
 import { useEffect } from "react";
+import ModalUpdateQuiz from "./ModalUpdateQuiz";
 const TableQuiz = () => {
   const [listQuiz, setListQuiz] = useState();
 
@@ -40,12 +41,7 @@ const TableQuiz = () => {
                 <td>{item.description}</td>
                 <td>{item.difficulty}</td>
                 <td>
-                  <button
-                    className="btn btn-warning"
-                    style={{ marginRight: 6 }}
-                  >
-                    Update
-                  </button>
+                  <ModalUpdateQuiz />
                   <button className="btn btn-danger">Delete</button>
                 </td>
               </tr>

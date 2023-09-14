@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import "./Admin.scss";
 
 import "react-toastify/dist/ReactToastify.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 const Admin = (props) => {
   const [Collapsed, setCollapsed] = useState(false);
@@ -24,7 +25,9 @@ const Admin = (props) => {
           />
         </div>
         <div className="admin-main">
-          <Outlet />
+          <PerfectScrollbar>
+            <Outlet />
+          </PerfectScrollbar>
         </div>
       </div>
     </div>

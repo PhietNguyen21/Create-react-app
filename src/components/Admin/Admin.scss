@@ -20,6 +20,12 @@
         }
         .admin-header {
             border: 2px solid red;
+            height: 40px;
+        }
+        .admin-main {
+            .scrollbar-container {
+                height: calc(100vh - 50px);
+            }
         }
     }
 }
