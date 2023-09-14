@@ -7,6 +7,8 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { FcPlus } from "react-icons/fc";
 import { postAddQuiz } from "../../services/apiServices";
 import { toast } from "react-toastify";
+import TableQuiz from "./TableQuiz";
+import { Accordion } from "react-bootstrap";
 const options = [
   { value: "EASY", label: "EASY" },
   { value: "NORMAL", label: "NORMAL" },
@@ -50,62 +52,77 @@ const ManageQuiz = (props) => {
 
   return (
     <div className="manager-quiz-container">
-      <div className="title"> Manager Quiz</div>
+      <div className="div-accordion">
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Manager Quiz</Accordion.Header>
+            <Accordion.Body>
+              <fieldset className="border rounded-3 p-3">
+                <legend className="float-none w-auto px-3">Add new Quiz</legend>
+                <div>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="description"
+                      placeholder="Description"
+                      value={description}
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
+                    />
+                    <label>Description</label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      placeholder="Name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                    />
+                    <label>Name</label>
+                  </div>
+                  <Select
+                    placeholder="Qiz type..."
+                    className="mt-3"
+                    // defaultValue={type}
+                    value={type}
+                    onChange={setType}
+                    options={options}
+                    name="difficulty"
+                    ref={selectRef}
+                  />
 
-      <fieldset className="border rounded-3 p-3">
-        <legend className="float-none w-auto px-3">Add new Quiz</legend>
-        <div>
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              name="description"
-              placeholder="Description"
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-            />
-            <label>Description</label>
-          </div>
-          <div className="form-floating">
-            <input
-              type="text"
-              className="form-control"
-              name="name"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-            <label>Name</label>
-          </div>
-          <Select
-            placeholder="Qiz type..."
-            className="mt-3"
-            // defaultValue={type}
-            value={type}
-            onChange={setType}
-            options={options}
-            name="difficulty"
-            ref={selectRef}
-          />
+                  <input
+                    onChange={handelUploadImg}
+                    name="quizImage"
+                    type="file"
+                    className="form-control mt-3"
+                    ref={inputRef}
+                  />
+                  <div>
+                    <button
+                      onClick={handleClickSave}
+                      className="btn btn-warning mt-3 "
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </fieldset>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
 
-          <input
-            onChange={handelUploadImg}
-            name="quizImage"
-            type="file"
-            className="form-control mt-3"
-            ref={inputRef}
-          />
-          <div>
-            <button onClick={handleClickSave} className="btn btn-warning mt-3 ">
-              Save
-            </button>
-          </div>
-        </div>
-      </fieldset>
+      <div className="table">
+        <div className="mb-2">List Quiz:..</div>
+        <TableQuiz />
+      </div>
     </div>
   );
 };

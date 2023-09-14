@@ -79,6 +79,10 @@ const postAddQuiz = (description, name, difficulty, image) => {
   form.append("quizImage", image);
   return axios.post("http://localhost:8081/api/v1/quiz", form);
 };
+
+const getAllQuiz = () => {
+  return axios.get("http://localhost:8081/api/v1/quiz/all");
+};
 export {
   postCreateNewUser,
   getAllUser,
@@ -91,4 +95,5 @@ export {
   getQuestionByQuizId,
   postSubmitAnswer,
   postAddQuiz,
+  getAllQuiz,
 };
