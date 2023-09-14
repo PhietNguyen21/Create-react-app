@@ -139,10 +139,14 @@ const ModalCreateUser = ({
             </div>
 
             <div className="form-image">
-              <label className="label-upload" htmlFor="labelUpload">
+              <label
+                className="label-upload"
+                htmlFor="labelUpload"
+                style={{ cursor: "pointer" }}
+              >
                 <div>
                   <FcPlus />
-                  <span>Upload Image</span>
+                  <div>Upload Image</div>
                 </div>
               </label>
               <input

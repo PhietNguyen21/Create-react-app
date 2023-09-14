@@ -23,9 +23,11 @@ import { MdDashboard } from "react-icons/md";
 import sidebarBg from "../../assets/bg2.jpg";
 // import DiReact from "../../../public/logo192.png";
 import "react-pro-sidebar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = (props) => {
   const { image, collapsed, rtl, toggled, handleToggleSidebar } = props;
+  const navigate = useNavigate();
   return (
     <ProSidebar
       className="prosideBar"
@@ -69,7 +71,10 @@ const SideBar = (props) => {
               Quản Lý User
               <Link to="manger-user" />
             </MenuItem>
-            <MenuItem>Quản Lý Bài Quiz</MenuItem>
+            <MenuItem>
+              Quản Lý Bài Quiz
+              <Link to="manager-quiz" />
+            </MenuItem>
             <MenuItem>Quản Lý Câu Hỏi</MenuItem>
           </SubMenu>
         </Menu>

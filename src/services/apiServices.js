@@ -70,6 +70,15 @@ const getQuestionByQuizId = (id) => {
 const postSubmitAnswer = (data) => {
   return axios.post("http://localhost:8081/api/v1/quiz-submit", { ...data });
 };
+
+const postAddQuiz = (description, name, difficulty, image) => {
+  const form = new FormData();
+  form.append("description", description);
+  form.append("name", name);
+  form.append("difficulty", difficulty);
+  form.append("quizImage", image);
+  return axios.post("http://localhost:8081/api/v1/quiz", form);
+};
 export {
   postCreateNewUser,
   getAllUser,
@@ -81,4 +90,5 @@ export {
   getQuizByParticipant,
   getQuestionByQuizId,
   postSubmitAnswer,
+  postAddQuiz,
 };
