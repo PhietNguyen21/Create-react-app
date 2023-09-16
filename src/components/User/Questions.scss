@@ -1,0 +1,22 @@
+:where(.css-dev-only-do-not-override-18iikkb).ant-space {
+    display: block;
+}
+
+.form-upload {
+    display: flex;
+    align-items: center;
+
+    .label-up {
+        border: 1px solid red;
+        border-radius: 6px;
+        padding: 5px 10px;
+        margin-right: 4px;
+        cursor: pointer;
+    }
+}
+
+.form-group-anwser {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

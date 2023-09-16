@@ -12,6 +12,7 @@ import ListQuiz from "./components/User/ListQuiz";
 import NotFoundPage from "./components/Home/NotFoundPage";
 import DetailsQuiz from "./components/User/DetailsQuiz";
 import ManageQuiz from "./components/User/ManageQuiz";
+import Questions from "./components/User/Questions";
 const Layout = () => {
   let { userId } = useParams();
   return (
@@ -28,6 +29,7 @@ const Layout = () => {
           <Route path="dashboard" index element={<DashBoard />} />
           <Route path="manger-user" element={<ManagerUser />} />
           <Route path="manager-quiz" element={<ManageQuiz />} />
+          <Route path="manager-questions" element={<Questions />} />
         </Route>
 
         <Route>

@@ -132,7 +132,7 @@ const Register = () => {
                         />
                       )
                     }
-                    autoFocus={passwordVisible ? false : true}
+                    // autoFocus={passwordVisible ? false : true}
                   />
                 </Form.Item>
                 <Form.Item>

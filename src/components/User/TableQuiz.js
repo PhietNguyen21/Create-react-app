@@ -3,6 +3,7 @@ import { getAllQuiz } from "../../services/apiServices";
 import { useState } from "react";
 import { useEffect } from "react";
 import ModalUpdateQuiz from "./ModalUpdateQuiz";
+import ModalDeleteQuiz from "./ModalDeleteQuiz";
 const TableQuiz = () => {
   const [listQuiz, setListQuiz] = useState();
 
@@ -41,8 +42,8 @@ const TableQuiz = () => {
                 <td>{item.description}</td>
                 <td>{item.difficulty}</td>
                 <td>
-                  <ModalUpdateQuiz />
-                  <button className="btn btn-danger">Delete</button>
+                  <ModalUpdateQuiz fetchAllQuiz={fetchAllQuiz} quiz={item} />
+                  <ModalDeleteQuiz fetchAllQuiz={fetchAllQuiz} quiz={item} />
                 </td>
               </tr>
             );
