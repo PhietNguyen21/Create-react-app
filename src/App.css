@@ -56,3 +56,13 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+}
+.listCard {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}

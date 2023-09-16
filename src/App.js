@@ -1,16 +1,19 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { increaseCounter, decreaseCounter } from "./redux/action/counterAction";
-import Mycomponent from "./components/Mycomponents";
+
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import HeaderMenu from "./pages/HeaderMenu";
+import HomePage from "./components/Cart/HomePage";
+import ListCard from "./components/Cart/ListCard";
 class App extends React.Component {
   render() {
     return (
-      <div>
-        Hello World &amp; Phiet Nguyen
-        <Mycomponent></Mycomponent>
-      </div>
+      <Routes>
+        <Route path="/" element={<HeaderMenu />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/listCart" element={<ListCard />}></Route>
+        </Route>
+      </Routes>
     );
   }
 }
